@@ -31,8 +31,8 @@ declare const global: {HermesInternal: null | {}};
 const App = () => {
   const Hello = 'Hi!';
   return (
-    <
-      <StatusBar barStyle="dark-content" />
+    <>
+      <StatusBar barStyle="dark-content" >
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
