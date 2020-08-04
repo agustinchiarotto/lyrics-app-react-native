@@ -1,12 +1,22 @@
 import React from 'react';
-import { SafeAreaView, Text, StatusBar } from 'react-native';
+import { Button, SafeAreaView, StatusBar, Text } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const SearchScreen = () => {
+import { SearchStackParamList } from '../../navigation/SearchStack';
+
+type SearchScreenNavigationProp = StackNavigationProp<SearchStackParamList, 'Search'>;
+
+interface Props {
+  navigation: SearchScreenNavigationProp;
+}
+
+const SearchScreen = ({ navigation }: Props) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Text>Search Screen</Text>
+        <Button onPress={() => navigation.navigate('LyricsDetails')} title=" Go To Lyrics Detail" />
       </SafeAreaView>
     </>
   );

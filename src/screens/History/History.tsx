@@ -1,12 +1,22 @@
 import React from 'react';
-import { SafeAreaView, Text, StatusBar } from 'react-native';
+import { Button, SafeAreaView, StatusBar, Text } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const HistoryScreen = () => {
+import { HistoryStackParamList } from '../../navigation/HistoryStack';
+
+type HistoryScreenNavigationProp = StackNavigationProp<HistoryStackParamList, 'History'>;
+
+interface Props {
+  navigation: HistoryScreenNavigationProp;
+}
+
+const HistoryScreen = ({ navigation }: Props) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Text>History Screen</Text>
+        <Button onPress={() => navigation.navigate('LyricsDetails')} title=" Go To Lyrics Detail" />
       </SafeAreaView>
     </>
   );

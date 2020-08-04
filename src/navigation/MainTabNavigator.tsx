@@ -3,9 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-import { HistoryScreen, SearchScreen } from '../screens';
-
-const Tab = createBottomTabNavigator();
+import HistoryStack from './HistoryStack';
+import SearchStack from './SearchStack';
 
 type Route = RouteProp<Record<string, object | undefined>, string>;
 
@@ -42,11 +41,13 @@ const navigatorTabBarOptions = {
   },
 };
 
+const { Navigator, Screen } = createBottomTabNavigator();
+
 const MainTabNavigator = () => (
-  <Tab.Navigator screenOptions={navigatorScreenOptions} tabBarOptions={navigatorTabBarOptions}>
-    <Tab.Screen name="Search" component={SearchScreen} />
-    <Tab.Screen name="History" component={HistoryScreen} />
-  </Tab.Navigator>
+  <Navigator screenOptions={navigatorScreenOptions} tabBarOptions={navigatorTabBarOptions}>
+    <Screen name="Search" component={SearchStack} />
+    <Screen name="History" component={HistoryStack} />
+  </Navigator>
 );
 
 export default MainTabNavigator;
