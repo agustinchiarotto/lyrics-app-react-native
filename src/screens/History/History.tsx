@@ -1,10 +1,16 @@
 import React from 'react';
 import { Button, SafeAreaView, StatusBar, Text } from 'react-native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { HistoryStackParamList } from '../../navigation/HistoryStack';
+import { MainTabsParamList } from '../../navigation/TabNavigator';
+import { RootStackParamList } from '../../navigation/MainNavigator';
 
-type HistoryScreenNavigationProp = StackNavigationProp<HistoryStackParamList, 'History'>;
+type HistoryScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabsParamList, 'History'>,
+  StackNavigationProp<RootStackParamList>
+>;
 
 interface Props {
   navigation: HistoryScreenNavigationProp;

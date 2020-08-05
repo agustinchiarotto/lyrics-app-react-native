@@ -3,10 +3,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-import HistoryStack from './HistoryStack';
-import SearchStack from './SearchStack';
+import { HistoryScreen, SearchScreen } from '../screens';
 
 type Route = RouteProp<Record<string, object | undefined>, string>;
+
+export type MainTabsParamList = {
+  Search: undefined;
+  History: undefined;
+};
 
 const getIconName = (routeName: string) => {
   let iconName = '';
@@ -43,11 +47,11 @@ const navigatorTabBarOptions = {
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const MainTabNavigator = () => (
+const TabNavigator = () => (
   <Navigator screenOptions={navigatorScreenOptions} tabBarOptions={navigatorTabBarOptions}>
-    <Screen name="Search" component={SearchStack} />
-    <Screen name="History" component={HistoryStack} />
+    <Screen name="Search" component={SearchScreen} />
+    <Screen name="History" component={HistoryScreen} />
   </Navigator>
 );
 
-export default MainTabNavigator;
+export default TabNavigator;

@@ -1,12 +1,16 @@
 import React, { Component, ComponentType } from 'react';
 import { ActivityIndicator, Button, SafeAreaView, StatusBar, Text, TextInput } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
-
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
-import { SearchStackParamList } from '../../navigation/SearchStack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+import { MainTabsParamList } from '../../navigation/TabNavigator';
+import { RootStackParamList } from '../../navigation/MainNavigator';
+
 import { RootState } from '../../store';
 import { getLyricsAction } from '../../store/actions';
 import { required } from '../../utils/validation';
@@ -15,7 +19,12 @@ type FormValues = {
   artist: string;
   song: string;
 };
-type SearchScreenNavigationProp = StackNavigationProp<SearchStackParamList, 'Search'>;
+
+type SearchScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabsParamList, 'Search'>,
+  StackNavigationProp<RootStackParamList>
+>;
+
 type PropsFromRedux = ConnectedProps<typeof connector> & InjectedFormProps<FormValues>;
 type Props = PropsFromRedux & {
   navigation: SearchScreenNavigationProp;
@@ -43,7 +52,7 @@ class SearchScreen extends Component<Props> {
 
     return (
       <>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
         <SafeAreaView>
           <Text>Search Screen</Text>
           <Button
