@@ -1,0 +1,1 @@
+export { getLyricsAction } from './lyrics';

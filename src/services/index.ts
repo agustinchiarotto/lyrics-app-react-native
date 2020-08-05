@@ -1,0 +1,1 @@
+export { getLyricsService } from './lyrics';
