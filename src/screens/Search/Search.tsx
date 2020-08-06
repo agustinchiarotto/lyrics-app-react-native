@@ -93,7 +93,6 @@ class SearchScreen extends Component<Props, State> {
         <StatusBar barStyle="dark-content" backgroundColor="white" />
         <MainContainer>
           <Header title="Search" />
-          <Text>Search Screen</Text>
           <Button
             onPress={() => navigation.navigate('LyricsDetails')}
             title="Go To Lyrics Detail"
