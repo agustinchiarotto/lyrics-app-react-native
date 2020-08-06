@@ -1,7 +1,11 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import styled from 'styled-components/native';
 
 import { colors } from '../../utils/theme';
+
+export const BackButtonContainer = styled(Pressable)({
+  marginLeft: -5,
+});
 
 export const BalanceFillingView = styled(View)({
   height: 35,
