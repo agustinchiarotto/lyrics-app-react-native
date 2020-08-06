@@ -1,5 +1,4 @@
 import React from 'react';
-
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import CustomText from '../CustomText';
@@ -26,7 +25,7 @@ const Header = ({ onPressBackButton, showBackButton, title }: Props) => {
     <MainContainer style={additionalStyles.headerShadow}>
       {showBackButton ? (
         <BackButtonContainer onPress={onPressBackButton}>
-          <MaterialIcon name="keyboard-arrow-left" size={35} color={colors.patagonianBlue} />
+          <MaterialIcon name="navigate-before" size={35} color={colors.patagonianBlue} />
         </BackButtonContainer>
       ) : (
         <BalanceFillingView />

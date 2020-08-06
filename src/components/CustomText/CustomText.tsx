@@ -8,6 +8,7 @@ type VariantType = 'error' | 'regular' | 'subtitle' | 'title';
 
 interface Props {
   children: React.ReactNode;
+  textAlign: 'center' | 'justify' | 'left' | 'right';
   variant?: VariantType;
 }
 
@@ -46,17 +47,24 @@ const getTextPropsByVariant = (variant: VariantType = 'regular') => {
   return { bold, color, size };
 };
 
-const CustomText = ({ children, variant }: Props) => {
+const CustomText = ({ children, textAlign, variant }: Props) => {
   const { bold, color, size } = getTextPropsByVariant(variant);
 
   return (
-    <StyledText allowFontScaling={false} bold={bold} color={color} size={size}>
+    <StyledText
+      allowFontScaling={false}
+      bold={bold}
+      color={color}
+      size={size}
+      textAlign={textAlign}
+    >
       {children}
     </StyledText>
   );
 };
 
 CustomText.defaultProps = {
+  textAlign: 'left',
   variant: 'regular',
 };
 

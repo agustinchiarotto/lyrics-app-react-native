@@ -1,5 +1,6 @@
 import React, { Component, ComponentType } from 'react';
 import { ActivityIndicator, Button, StatusBar, Text, TextInput } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
@@ -11,8 +12,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
 
-import { Header } from '../../components';
-import { MainContainer } from './styles';
+import { Header, NoInternetSign } from '../../components';
+import { MainContainer, NoInternetSignContainer } from './styles';
 
 import { RootState } from '../../store';
 import { getLyricsAction } from '../../store/actions';
@@ -33,11 +34,29 @@ type Props = PropsFromRedux & {
   navigation: SearchScreenNavigationProp;
 };
 
-class SearchScreen extends Component<Props> {
+type State = {
+  isConnected: boolean;
+};
+
+class SearchScreen extends Component<Props, State> {
+  state = {
+    isConnected: true,
+  };
+
   componentDidMount() {
     const { getLyrics } = this.props;
+    this.unsubscribeNetInfo = NetInfo.addEventListener(this.handleConnectivityChange);
     getLyrics({ artist: 'coldplay', song: 'adventure of a lifetime' });
   }
+
+  componentWillUnmount() {
+    this.unsubscribeNetInfo();
+  }
+
+  unsubscribeNetInfo = () => {};
+
+  handleConnectivityChange = (state: { isConnected: boolean }) =>
+    this.setState({ isConnected: state.isConnected });
 
   getLyricsByArtistAndSong = () => {
     const {
@@ -52,6 +71,21 @@ class SearchScreen extends Component<Props> {
 
   render() {
     const { navigation, lyrics, loading, error, valid: fieldsValid } = this.props;
+    const { isConnected } = this.state;
+
+    if (!isConnected) {
+      return (
+        <>
+          <StatusBar barStyle="dark-content" backgroundColor="white" />
+          <MainContainer>
+            <Header title="Search" />
+            <NoInternetSignContainer>
+              <NoInternetSign />
+            </NoInternetSignContainer>
+          </MainContainer>
+        </>
+      );
+    }
 
     return (
       <>
