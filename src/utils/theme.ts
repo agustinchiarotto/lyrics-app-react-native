@@ -8,5 +8,6 @@ export const colors = {
   patagonianDarkBlue: '#182a4a',
   patagonianGray: '#666666',
   patagonianOrange: '#ef8827',
+  placeholderGray: '#F5F5F5',
   white: '#ffffff',
 };

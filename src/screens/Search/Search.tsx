@@ -1,5 +1,12 @@
 import React, { Component, ComponentType } from 'react';
-import { ActivityIndicator, Button, StatusBar, Text, TextInput } from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  Keyboard,
+  StatusBar,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
@@ -12,7 +19,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
 
-import { Header, InformativeSign, RectangularButton } from '../../components';
+import { FormInput, Header, InformativeSign, RectangularButton } from '../../components';
 import NotFoundSignModal from './components/NotFoundSignModal';
 import { MainContainer, NoInternetSignContainer } from './styles';
 
@@ -91,37 +98,41 @@ class SearchScreen extends Component<Props, State> {
     return (
       <>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <MainContainer>
-          <Header title="Search" />
-          <Button
-            onPress={() => navigation.navigate('LyricsDetails')}
-            title="Go To Lyrics Detail"
-          />
-          <Field
-            autoCapitalize="none"
-            name="artist"
-            placeholder="Artist"
-            component={TextInput}
-            validate={[required]}
-          />
-          <Field
-            autoCapitalize="none"
-            name="song"
-            placeholder="Song"
-            component={TextInput}
-            validate={[required]}
-          />
-          <RectangularButton
-            disabled={!fieldsValid}
-            onPress={this.getLyricsByArtistAndSong}
-            title="Search Lyrics"
-            variant="orange"
-          />
-          {loading ? <ActivityIndicator /> : <Text>{error || lyrics}</Text>}
-          {!loading && error ? (
-            <NotFoundSignModal onPressButton={cleanLyrics} visible={error !== ''} />
-          ) : null}
-        </MainContainer>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <MainContainer>
+            <Header title="Search" />
+            <Button
+              onPress={() => navigation.navigate('LyricsDetails')}
+              title="Go To Lyrics Detail"
+            />
+            <Field
+              autoCapitalize="none"
+              label="Artist"
+              name="artist"
+              placeholder="Artist's Full Name"
+              component={FormInput}
+              validate={[required]}
+            />
+            <Field
+              autoCapitalize="none"
+              label="Song"
+              name="song"
+              placeholder="Full Name of the Song"
+              component={FormInput}
+              validate={[required]}
+            />
+            <RectangularButton
+              disabled={!fieldsValid}
+              onPress={this.getLyricsByArtistAndSong}
+              title="Search Lyrics"
+              variant="orange"
+            />
+            {loading ? <ActivityIndicator /> : <Text>{error || lyrics}</Text>}
+            {!loading && error ? (
+              <NotFoundSignModal onPressButton={cleanLyrics} visible={error !== ''} />
+            ) : null}
+          </MainContainer>
+        </TouchableWithoutFeedback>
       </>
     );
   }
@@ -143,11 +154,11 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose<ComponentType<Props>>(
+  connector,
   reduxForm<FormValues>({
     form: 'lyricsForm',
     destroyOnUnmount: false,
     enableReinitialize: true,
-    initialValues: { artist: '', song: '' },
+    // initialValues: { artist: '', song: '' },
   }),
-  connector,
 )(SearchScreen);
