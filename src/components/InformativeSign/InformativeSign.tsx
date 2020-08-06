@@ -38,9 +38,7 @@ const InformativeSign = ({ variant }: Props) => {
     <MainContainer>
       <MaterialIcon name={iconName} size={100} color={colors.patagonianBlue} />
       <Spacing />
-      <CustomText textAlign="center" variant="subtitle">
-        {text}
-      </CustomText>
+      <CustomText textAlign="center">{text}</CustomText>
     </MainContainer>
   );
 };

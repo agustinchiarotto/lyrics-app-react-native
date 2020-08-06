@@ -8,47 +8,42 @@ type VariantType = 'error' | 'regular' | 'subtitle' | 'title';
 
 interface Props {
   children: React.ReactNode;
+  color: string;
   textAlign: 'center' | 'justify' | 'left' | 'right';
   variant?: VariantType;
 }
 
 const getTextPropsByVariant = (variant: VariantType = 'regular') => {
   let bold: boolean;
-  let color: string;
   let size: number;
 
   switch (variant) {
     case 'error':
       bold = false;
-      color = colors.error;
       size = 16;
       break;
     case 'subtitle':
       bold = true;
-      color = colors.patagonianDarkBlue;
       size = 18;
       break;
     case 'title':
       bold = true;
-      color = colors.patagonianDarkBlue;
       size = 22;
       break;
     case 'regular':
       bold = false;
-      color = colors.patagonianDarkBlue;
       size = 16;
       break;
     default:
       bold = false;
-      color = colors.patagonianDarkBlue;
       size = 16;
   }
 
-  return { bold, color, size };
+  return { bold, size };
 };
 
-const CustomText = ({ children, textAlign, variant }: Props) => {
-  const { bold, color, size } = getTextPropsByVariant(variant);
+const CustomText = ({ children, color, textAlign, variant }: Props) => {
+  const { bold, size } = getTextPropsByVariant(variant);
 
   return (
     <StyledText
@@ -64,6 +59,7 @@ const CustomText = ({ children, textAlign, variant }: Props) => {
 };
 
 CustomText.defaultProps = {
+  color: colors.patagonianDarkBlue,
   textAlign: 'left',
   variant: 'regular',
 };

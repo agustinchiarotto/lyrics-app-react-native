@@ -18,4 +18,5 @@ export const NotFoundSignContainer = styled(View)({
   justifyContent: 'center',
   paddingHorizontal: 20,
   paddingBottom: 20,
+  width: '80%',
 });

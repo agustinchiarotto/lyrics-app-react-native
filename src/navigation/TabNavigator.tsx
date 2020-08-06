@@ -39,7 +39,7 @@ const navigatorScreenOptions = ({ route }: { route: Route }) => ({
 
 const navigatorTabBarOptions = {
   allowFontScalling: false,
-  activeTintColor: colors.patagonianBlue,
+  activeTintColor: colors.patagonianOrange,
   inactiveTintColor: colors.gray,
   labelStyle: {
     fontSize: 12,

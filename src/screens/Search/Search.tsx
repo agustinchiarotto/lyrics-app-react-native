@@ -12,7 +12,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
 
-import { Header, InformativeSign } from '../../components';
+import { Header, InformativeSign, RectangularButton } from '../../components';
 import NotFoundSignModal from './components/NotFoundSignModal';
 import { MainContainer, NoInternetSignContainer } from './styles';
 
@@ -112,10 +112,11 @@ class SearchScreen extends Component<Props, State> {
             component={TextInput}
             validate={[required]}
           />
-          <Button
+          <RectangularButton
             disabled={!fieldsValid}
             onPress={this.getLyricsByArtistAndSong}
             title="Search Lyrics"
+            variant="orange"
           />
           {loading ? <ActivityIndicator /> : <Text>{error || lyrics}</Text>}
           {!loading && error ? (

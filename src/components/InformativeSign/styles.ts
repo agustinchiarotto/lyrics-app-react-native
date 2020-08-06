@@ -12,5 +12,5 @@ export const MainContainer = styled(View)({
 });
 
 export const Spacing = styled(View)({
-  height: 15,
+  height: 30,
 });

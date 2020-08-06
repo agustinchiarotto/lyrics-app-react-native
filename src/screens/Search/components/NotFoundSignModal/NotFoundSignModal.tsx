@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Modal } from 'react-native';
+import { Modal } from 'react-native';
 
-import { InformativeSign } from '../../../../components';
+import { InformativeSign, RectangularButton } from '../../../../components';
 import { MainContainer, NotFoundSignContainer } from './styles';
 
 interface Props {
@@ -15,7 +15,7 @@ const NotFoundSignModal = ({ onPressButton, visible }: Props) => {
       <MainContainer>
         <NotFoundSignContainer>
           <InformativeSign variant="not-found" />
-          <Button onPress={onPressButton} title="Ok" />
+          <RectangularButton onPress={onPressButton} title="Ok" variant="orange" />
         </NotFoundSignContainer>
       </MainContainer>
     </Modal>
