@@ -24,9 +24,9 @@ const getTextPropsByVariant = (variant: VariantType = 'regular') => {
       size = 16;
       break;
     case 'subtitle':
-      bold = false;
-      color = colors.patagonianBlue;
-      size = 16;
+      bold = true;
+      color = colors.patagonianDarkBlue;
+      size = 18;
       break;
     case 'title':
       bold = true;
@@ -34,7 +34,7 @@ const getTextPropsByVariant = (variant: VariantType = 'regular') => {
       size = 22;
       break;
     case 'regular':
-      bold = true;
+      bold = false;
       color = colors.patagonianDarkBlue;
       size = 16;
       break;

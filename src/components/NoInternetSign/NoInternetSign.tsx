@@ -10,7 +10,7 @@ const NoInternetSign = () => (
   <MainContainer>
     <MaterialIcon name="cloud-off" size={100} color={colors.patagonianBlue} />
     <Spacing />
-    <CustomText textAlign="center">
+    <CustomText textAlign="center" variant="subtitle">
       {'Search is not available without internet.\nPlease check your conection.'}
     </CustomText>
   </MainContainer>

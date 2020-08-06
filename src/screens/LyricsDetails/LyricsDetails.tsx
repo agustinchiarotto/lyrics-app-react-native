@@ -1,28 +1,55 @@
 import React from 'react';
-import { Text, StatusBar, Button } from 'react-native';
+import { StatusBar } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { MainTabsParamList } from '../../navigation/TabNavigator';
-import { Header } from '../../components';
-import { MainContainer } from './styles';
+import { CustomText, Header } from '../../components';
+import { DataContainer, MainContainer, LyricsContainer, Spacing } from './styles';
+
+import { RootState } from '../../store';
 
 type LyricsScreenNavigationProp = StackNavigationProp<MainTabsParamList, 'Search'>;
 
-interface Props {
+interface Props extends ConnectedProps<typeof connector> {
   navigation: LyricsScreenNavigationProp;
 }
 
-const LyricsDetailsScreen = ({ navigation }: Props) => {
+const LyricsDetailsScreen = ({ lyrics, lyricsForm, navigation }: Props) => {
+  const formValues = lyricsForm.values;
+  let artistName = '';
+  let songName = '';
+  if (formValues) {
+    artistName = formValues.artist;
+    songName = formValues.song;
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <MainContainer>
         <Header showBackButton onPressBackButton={navigation.goBack} title="Lyrics" />
-        <Text>Lyrics Details Screen</Text>
-        <Button title="Go Back" onPress={navigation.goBack} />
+        <Spacing />
+        <DataContainer>
+          <CustomText variant="subtitle">Artist: </CustomText>
+          <CustomText>{artistName}</CustomText>
+        </DataContainer>
+        <DataContainer>
+          <CustomText variant="subtitle">Song: </CustomText>
+          <CustomText>{songName}</CustomText>
+        </DataContainer>
+        <LyricsContainer>
+          <CustomText>{lyrics}</CustomText>
+        </LyricsContainer>
       </MainContainer>
     </>
   );
 };
+const mapStateToProps = ({ forms, lyrics }: RootState) => ({
+  lyrics: lyrics.lyrics,
+  lyricsForm: forms.lyricsForm,
+});
 
-export default LyricsDetailsScreen;
+const connector = connect(mapStateToProps);
+
+export default connector(LyricsDetailsScreen);
