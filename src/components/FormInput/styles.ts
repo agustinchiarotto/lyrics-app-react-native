@@ -31,7 +31,7 @@ export const Input = styled(TextInput)((props: InputProps) => ({
 
 export const InputContainer = styled(View)({
   alignItems: 'center',
-  backgroundColor: colors.lightGray,
+  backgroundColor: colors.placeholderGray,
   borderRadius: 10,
   borderWidth: 1,
   flexDirection: 'row',
