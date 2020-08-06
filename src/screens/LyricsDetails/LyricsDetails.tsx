@@ -3,6 +3,7 @@ import { StatusBar } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { connect, ConnectedProps } from 'react-redux';
 
+import { goBack } from '../../navigation/navigationControls';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { CustomText, Header } from '../../components';
 import { DataContainer, MainContainer, LyricsContainer, Spacing } from './styles';
@@ -15,7 +16,7 @@ interface Props extends ConnectedProps<typeof connector> {
   navigation: LyricsScreenNavigationProp;
 }
 
-const LyricsDetailsScreen = ({ lyrics, lyricsForm, navigation }: Props) => {
+const LyricsDetailsScreen = ({ lyrics, lyricsForm }: Props) => {
   const formValues = lyricsForm.values;
   let artistName = '';
   let songName = '';
@@ -28,7 +29,7 @@ const LyricsDetailsScreen = ({ lyrics, lyricsForm, navigation }: Props) => {
     <>
       <StatusBar barStyle="dark-content" />
       <MainContainer>
-        <Header showBackButton onPressBackButton={navigation.goBack} title="Lyrics" />
+        <Header showBackButton onPressBackButton={goBack} title="Lyrics" />
         <Spacing />
         <DataContainer>
           <CustomText variant="subtitle">Artist: </CustomText>
