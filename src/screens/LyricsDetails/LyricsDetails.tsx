@@ -1,7 +1,10 @@
 import React from 'react';
-import { SafeAreaView, Text, StatusBar, Button } from 'react-native';
+import { Text, StatusBar, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 import { MainTabsParamList } from '../../navigation/TabNavigator';
+import { Header } from '../../components';
+import { MainContainer } from './styles';
 
 type LyricsScreenNavigationProp = StackNavigationProp<MainTabsParamList, 'Search'>;
 
@@ -13,10 +16,11 @@ const LyricsDetailsScreen = ({ navigation }: Props) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <MainContainer>
+        <Header showBackButton onPressBackButton={navigation.goBack} title="Lyrics" />
         <Text>Lyrics Details Screen</Text>
-        <Button title="Go Back" onPress={() => navigation.goBack()} />
-      </SafeAreaView>
+        <Button title="Go Back" onPress={navigation.goBack} />
+      </MainContainer>
     </>
   );
 };

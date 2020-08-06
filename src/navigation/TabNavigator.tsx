@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { HistoryScreen, SearchScreen } from '../screens';
+import { colors } from '../utils/theme';
 
 type Route = RouteProp<Record<string, object | undefined>, string>;
 
@@ -38,8 +39,8 @@ const navigatorScreenOptions = ({ route }: { route: Route }) => ({
 
 const navigatorTabBarOptions = {
   allowFontScalling: false,
-  activeTintColor: 'tomato',
-  inactiveTintColor: 'gray',
+  activeTintColor: colors.patagonianBlue,
+  inactiveTintColor: colors.gray,
   labelStyle: {
     fontSize: 12,
   },

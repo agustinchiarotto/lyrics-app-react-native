@@ -1,11 +1,14 @@
 import React from 'react';
-import { Button, SafeAreaView, StatusBar, Text } from 'react-native';
+import { Button, StatusBar, Text } from 'react-native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
+
+import { Header } from '../../components';
+import { MainContainer } from './styles';
 
 type HistoryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabsParamList, 'History'>,
@@ -20,10 +23,11 @@ const HistoryScreen = ({ navigation }: Props) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <MainContainer>
+        <Header title="History" />
         <Text>History Screen</Text>
         <Button onPress={() => navigation.navigate('LyricsDetails')} title=" Go To Lyrics Detail" />
-      </SafeAreaView>
+      </MainContainer>
     </>
   );
 };

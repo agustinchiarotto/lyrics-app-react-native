@@ -1,5 +1,5 @@
 import React, { Component, ComponentType } from 'react';
-import { ActivityIndicator, Button, SafeAreaView, StatusBar, Text, TextInput } from 'react-native';
+import { ActivityIndicator, Button, StatusBar, Text, TextInput } from 'react-native';
 import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
@@ -10,6 +10,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
+
+import { Header } from '../../components';
+import { MainContainer } from './styles';
 
 import { RootState } from '../../store';
 import { getLyricsAction } from '../../store/actions';
@@ -53,7 +56,8 @@ class SearchScreen extends Component<Props> {
     return (
       <>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <SafeAreaView>
+        <MainContainer>
+          <Header title="Search" />
           <Text>Search Screen</Text>
           <Button
             onPress={() => navigation.navigate('LyricsDetails')}
@@ -79,7 +83,7 @@ class SearchScreen extends Component<Props> {
             title="Search Lyrics"
           />
           {loading ? <ActivityIndicator /> : <Text>{error || lyrics}</Text>}
-        </SafeAreaView>
+        </MainContainer>
       </>
     );
   }
