@@ -1,4 +1,4 @@
-import { GET_LYRICS, SET_LOADING_LYRICS, LyricsActionTypes } from '../actions/types';
+import { CLEAN_LYRICS, GET_LYRICS, SET_LOADING_LYRICS, LyricsActionTypes } from '../actions/types';
 
 export interface LyricsState {
   error: string;
@@ -24,11 +24,17 @@ const users = (state = initialState, action: LyricsActionTypes): LyricsState => 
         return {
           ...state,
           error: action.payload.error || '',
+          lyrics: '',
         };
       }
       return {
         ...state,
+        error: '',
         lyrics: action.payload.lyrics || '',
+      };
+    case CLEAN_LYRICS:
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { GET_LYRICS, SET_LOADING_LYRICS, LyricsActionTypes } from './types';
+import { CLEAN_LYRICS, GET_LYRICS, SET_LOADING_LYRICS, LyricsActionTypes } from './types';
 
 import { getLyricsService } from '../../services';
 
@@ -28,5 +28,11 @@ export const getLyricsAction = ({ artist, song }: { artist: string; song: string
       });
       console.log('error on getLyrics action', error);
     }
+  };
+};
+
+export const cleanLyricsAction = () => {
+  return async (dispatch: Dispatch<LyricsActionTypes>) => {
+    dispatch({ type: CLEAN_LYRICS });
   };
 };

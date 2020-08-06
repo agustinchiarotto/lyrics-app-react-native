@@ -1,1 +1,1 @@
-export { getLyricsAction } from './lyrics';
+export { cleanLyricsAction, getLyricsAction } from './lyrics';

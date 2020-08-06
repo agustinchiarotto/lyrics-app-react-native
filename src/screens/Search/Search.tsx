@@ -12,11 +12,12 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
 
-import { Header, NoInternetSign } from '../../components';
+import { Header, InformativeSign } from '../../components';
+import NotFoundSignModal from './components/NotFoundSignModal';
 import { MainContainer, NoInternetSignContainer } from './styles';
 
 import { RootState } from '../../store';
-import { getLyricsAction } from '../../store/actions';
+import { cleanLyricsAction, getLyricsAction } from '../../store/actions';
 import { required } from '../../utils/validation';
 
 type FormValues = {
@@ -46,7 +47,7 @@ class SearchScreen extends Component<Props, State> {
   componentDidMount() {
     const { getLyrics } = this.props;
     this.unsubscribeNetInfo = NetInfo.addEventListener(this.handleConnectivityChange);
-    getLyrics({ artist: 'coldplay', song: 'adventure of a lifetime' });
+    getLyrics({ artist: 'coldpla', song: 'adventure of a lifetime' });
   }
 
   componentWillUnmount() {
@@ -70,7 +71,7 @@ class SearchScreen extends Component<Props, State> {
   };
 
   render() {
-    const { navigation, lyrics, loading, error, valid: fieldsValid } = this.props;
+    const { cleanLyrics, navigation, lyrics, loading, error, valid: fieldsValid } = this.props;
     const { isConnected } = this.state;
 
     if (!isConnected) {
@@ -80,7 +81,7 @@ class SearchScreen extends Component<Props, State> {
           <MainContainer>
             <Header title="Search" />
             <NoInternetSignContainer>
-              <NoInternetSign />
+              <InformativeSign variant="no-internet" />
             </NoInternetSignContainer>
           </MainContainer>
         </>
@@ -117,6 +118,9 @@ class SearchScreen extends Component<Props, State> {
             title="Search Lyrics"
           />
           {loading ? <ActivityIndicator /> : <Text>{error || lyrics}</Text>}
+          {!loading && error ? (
+            <NotFoundSignModal onPressButton={cleanLyrics} visible={error !== ''} />
+          ) : null}
         </MainContainer>
       </>
     );
@@ -133,6 +137,7 @@ const mapStateToProps = ({ forms, lyrics }: RootState) => ({
 const mapDispatchToProps = {
   getLyrics: ({ artist, song }: { artist: string; song: string }) =>
     getLyricsAction({ artist, song }),
+  cleanLyrics: () => cleanLyricsAction(),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
