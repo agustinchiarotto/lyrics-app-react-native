@@ -7,7 +7,7 @@ import { MainContainer, Spacing } from './styles';
 import { colors } from '../../utils/theme';
 
 interface Props {
-  variant: 'no-internet' | 'not-found';
+  variant: 'no-internet' | 'no-history' | 'not-found';
 }
 
 function getIconAndTextByVariant(variant: Props['variant']) {
@@ -21,7 +21,11 @@ function getIconAndTextByVariant(variant: Props['variant']) {
       break;
     case 'not-found':
       iconName = 'sentiment-dissatisfied';
-      text = 'No lyrics found.\nPlease make sure you typed the full\nname of the artist and song.';
+      text = 'No lyrics found.\n';
+      break;
+    case 'no-history':
+      iconName = 'history';
+      text = "You don't have prevoius searches.\nGo and find some lyrics!";
       break;
     default:
       iconName = 'info-outline';

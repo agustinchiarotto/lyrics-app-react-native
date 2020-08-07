@@ -102,7 +102,7 @@ class SearchScreen extends Component<Props, State> {
             <Content>
               <Form>
                 <Field
-                  autoCapitalize="none"
+                  autoCapitalize="words"
                   label="Artist"
                   name="artist"
                   placeholder="Artist's Full Name"
@@ -111,7 +111,7 @@ class SearchScreen extends Component<Props, State> {
                 />
                 <Spacing />
                 <Field
-                  autoCapitalize="none"
+                  autoCapitalize="words"
                   label="Song"
                   name="song"
                   placeholder="Full Name of the Song"

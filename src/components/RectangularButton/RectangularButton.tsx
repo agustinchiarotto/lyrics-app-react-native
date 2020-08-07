@@ -28,6 +28,7 @@ const RectangularButton = ({ disabled, loading, onPress, title, variant }: Props
 RectangularButton.defaultProps = {
   disabled: false,
   loading: false,
+  variant: 'blue',
 };
 
 export default RectangularButton;

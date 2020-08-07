@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, FlatList, StatusBar } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { CompositeNavigationProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-community/async-storage';
 
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { CompositeNavigationProp, useFocusEffect } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
 
-import { Header, SongCard } from '../../components';
-import { MainContainer, Spacing, additionalStyles } from './styles';
+import { Header, InformativeSign, RectangularButton, SongCard, Spacing } from '../../components';
+import {
+  ClearButtonContainer,
+  EmptyListPlaceholder,
+  MainContainer,
+  additionalStyles,
+} from './styles';
+
+import { SongHistoryData } from '../../types';
 
 type HistoryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabsParamList, 'History'>,
@@ -20,46 +27,69 @@ interface Props {
   navigation: HistoryScreenNavigationProp;
 }
 
-type Song = {
-  artistName: string;
-  songName: string;
-};
+const flatlistKeyExtractor = (item: SongHistoryData) => item.id;
 
-const fakeData: Song[] = [
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-  { artistName: 'Lorem ipsum', songName: 'Lorem ipsum' },
-];
+const FlatListItem = ({ item }: { item: SongHistoryData }) => (
+  <SongCard artistName={item.artist} songName={item.song} />
+);
 
-const flatlistKeyExtractor = (item: Song) => `${item.artistName}${item.songName}`;
-
-const FlatListItem = ({ item }: { item: Song }) => (
-  <SongCard artistName={item.artistName} songName={item.songName} />
+const ListEmptyComponent = () => (
+  <EmptyListPlaceholder>
+    <InformativeSign variant="no-history" />
+  </EmptyListPlaceholder>
 );
 
 const HistoryScreen = ({ navigation }: Props) => {
+  const [searchHistoryData, setSearchHistoryData] = useState<SongHistoryData[]>([]);
+
+  const getData = useCallback(() => {
+    let isActive = true;
+    const getHistoryData = async () => {
+      try {
+        const result = await AsyncStorage.getItem('search-history');
+        const jsonValue: SongHistoryData[] = result !== null ? JSON.parse(result) : [];
+        console.log('jsonValue', jsonValue);
+        if (isActive) {
+          setSearchHistoryData(jsonValue || []);
+        }
+      } catch (error) {
+        console.log('An error occurred getting the search history data: ', error);
+      }
+    };
+    getHistoryData();
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  useFocusEffect(getData);
+
+  const clearHistory = useCallback(async () => {
+    try {
+      await AsyncStorage.setItem('search-history', JSON.stringify([]));
+      getData();
+    } catch (error) {
+      console.log('An error occurred clearing the search history: ', error);
+    }
+  }, [getData]);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <MainContainer>
         <Header title="History" />
         <Button onPress={() => navigation.navigate('LyricsDetails')} title=" Go To Lyrics Detail" />
+        {searchHistoryData.length > 0 && (
+          <ClearButtonContainer>
+            <RectangularButton onPress={clearHistory} title="Clear History" />
+          </ClearButtonContainer>
+        )}
         <FlatList
           contentContainerStyle={additionalStyles.flatlistContent}
-          data={fakeData}
+          data={searchHistoryData}
           keyExtractor={flatlistKeyExtractor}
           ItemSeparatorComponent={Spacing}
+          ListEmptyComponent={ListEmptyComponent}
           renderItem={FlatListItem}
           style={additionalStyles.flatlist}
         />
