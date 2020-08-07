@@ -9,12 +9,13 @@ import { colors } from '../../utils/theme';
 
 interface Props {
   artistName: string;
+  onPress: () => void;
   songName: string;
 }
 
-const SongItem = ({ artistName, songName }: Props) => {
+const SongItem = ({ artistName, onPress, songName }: Props) => {
   return (
-    <AnimatedSqueeze touchableStyle={additionalStyles.mainContainer}>
+    <AnimatedSqueeze onPress={onPress} touchableStyle={additionalStyles.mainContainer}>
       <IconContainer>
         <Icon color={colors.patagonianOrange} name="music-note" size={40} />
       </IconContainer>

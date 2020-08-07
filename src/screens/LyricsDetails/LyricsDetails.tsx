@@ -1,29 +1,39 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { goBack } from '../../navigation/navigationControls';
-import { MainTabsParamList } from '../../navigation/TabNavigator';
+import { RootStackParamList } from '../../navigation/MainNavigator';
 import { CustomText, Header } from '../../components';
 import { DataContainer, MainContainer, LyricsContainer, Spacing } from './styles';
 
 import { RootState } from '../../store';
 
-type LyricsScreenNavigationProp = StackNavigationProp<MainTabsParamList, 'Search'>;
+type LyricsScreenRouteProp = RouteProp<RootStackParamList, 'LyricsDetails'>;
+type LyricsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'LyricsDetails'>;
 
 interface Props extends ConnectedProps<typeof connector> {
   navigation: LyricsScreenNavigationProp;
+  route: LyricsScreenRouteProp;
 }
 
-const LyricsDetailsScreen = ({ lyrics, lyricsForm }: Props) => {
-  const formValues = lyricsForm.values;
+const LyricsDetailsScreen = ({ route, lyrics, lyricsForm }: Props) => {
   let artistName = '';
   let songName = '';
+  let lyricsToShow = '';
 
-  if (formValues) {
+  const { songData } = route.params;
+  const formValues = lyricsForm.values;
+  if (songData) {
+    artistName = songData.artist;
+    songName = songData.song;
+    lyricsToShow = songData.lyrics;
+  } else if (formValues) {
     artistName = formValues.artist;
     songName = formValues.song;
+    lyricsToShow = lyrics;
   }
 
   return (
@@ -41,7 +51,7 @@ const LyricsDetailsScreen = ({ lyrics, lyricsForm }: Props) => {
           <CustomText>{songName}</CustomText>
         </DataContainer>
         <LyricsContainer>
-          <CustomText>{lyrics}</CustomText>
+          <CustomText>{lyricsToShow}</CustomText>
         </LyricsContainer>
       </MainContainer>
     </>

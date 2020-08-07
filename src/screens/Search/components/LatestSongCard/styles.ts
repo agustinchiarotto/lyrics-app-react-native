@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import styled from 'styled-components/native';
 
-import { colors } from '../../utils/theme';
+import { colors } from '../../../../utils/theme';
 
 export const IconContainer = styled(View)({
   alignItems: 'center',

@@ -1,10 +1,9 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import CustomText from '../CustomText';
-import Spacing from '../Spacing';
+import { CustomText, Spacing } from '../../../../components';
 import { IconContainer, Info, MainContainer, additionalStyles } from './styles';
-import { colors } from '../../utils/theme';
+import { colors } from '../../../../utils/theme';
 
 interface Props {
   artistName: string;

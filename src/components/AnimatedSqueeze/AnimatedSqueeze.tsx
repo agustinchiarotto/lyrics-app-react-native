@@ -5,9 +5,7 @@ interface Props {
   children: React.ReactNode;
   disabled: boolean;
   hitSlop: object;
-  onLongPress?: () => void;
   onPress: () => void;
-  testID?: string;
   touchableStyle: object;
   viewStyle: object;
 }
@@ -16,9 +14,7 @@ class AnimatedSqueeze extends Component<Props> {
   static defaultProps = {
     disabled: false,
     hitSlop: {},
-    onLongPress: () => {},
     onPress: () => {},
-    testID: null,
     touchableStyle: {},
     viewStyle: {},
   };
@@ -45,25 +41,21 @@ class AnimatedSqueeze extends Component<Props> {
     }).start();
   };
 
-  scaleAndGoTo = (longPress: boolean) => {
-    const { onLongPress, onPress } = this.props;
+  scaleAndGoTo = () => {
+    const { onPress } = this.props;
     this.animateOut();
-    if (longPress && onLongPress) {
-      onLongPress();
-    } else {
-      onPress();
-    }
+    onPress();
   };
 
   render() {
-    const { children, disabled, hitSlop, touchableStyle, viewStyle, testID } = this.props;
+    const { children, disabled, hitSlop, touchableStyle, viewStyle } = this.props;
     const squeezee = this.SqueezeValue.interpolate({
       inputRange: [0, 0.3, 0.6, 1],
       outputRange: [1, 0.9, 0.8, 0.7],
     });
 
     return (
-      <Animated.View testID={testID} style={[{ transform: [{ scale: squeezee }] }, viewStyle]}>
+      <Animated.View style={[{ transform: [{ scale: squeezee }] }, viewStyle]}>
         <Pressable
           disabled={disabled}
           hitSlop={hitSlop}

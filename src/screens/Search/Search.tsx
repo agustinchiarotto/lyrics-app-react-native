@@ -16,11 +16,11 @@ import {
   FormInput,
   Header,
   InformativeSign,
-  LatestSongCard,
   RectangularButton,
   Spacing,
   CustomText,
 } from '../../components';
+import LatestSongCard from './components/LatestSongCard';
 import NotFoundSignModal from './components/NotFoundSignModal';
 import { Content, Form, LastSearchContent, MainContainer, NoInternetSignContainer } from './styles';
 

@@ -3,10 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import TabNavigator from './TabNavigator';
 import { LyricsDetailsScreen } from '../screens';
+import { SongHistoryData } from 'src/types';
 
 export type RootStackParamList = {
-  History: undefined;
-  LyricsDetails: undefined;
+  MainTabs: undefined;
+  LyricsDetails: {
+    songData: SongHistoryData;
+  };
 };
 
 const { Navigator, Screen } = createStackNavigator();

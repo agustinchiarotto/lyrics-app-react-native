@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, FlatList, StatusBar } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
@@ -7,6 +7,7 @@ import { CompositeNavigationProp, useFocusEffect } from '@react-navigation/nativ
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainTabsParamList } from '../../navigation/TabNavigator';
 import { RootStackParamList } from '../../navigation/MainNavigator';
+import { goToPage } from '../../navigation/navigationControls';
 
 import { Header, InformativeSign, RectangularButton, SongCard, Spacing } from '../../components';
 import {
@@ -30,7 +31,11 @@ interface Props {
 const flatlistKeyExtractor = (item: SongHistoryData) => item.id;
 
 const FlatListItem = ({ item }: { item: SongHistoryData }) => (
-  <SongCard artistName={item.artist} songName={item.song} />
+  <SongCard
+    artistName={item.artist}
+    onPress={goToPage.bind(null, 'LyricsDetails', { songData: item })}
+    songName={item.song}
+  />
 );
 
 const ListEmptyComponent = () => (
@@ -39,7 +44,7 @@ const ListEmptyComponent = () => (
   </EmptyListPlaceholder>
 );
 
-const HistoryScreen = ({ navigation }: Props) => {
+const HistoryScreen = () => {
   const [searchHistoryData, setSearchHistoryData] = useState<SongHistoryData[]>([]);
 
   const getData = useCallback(() => {
@@ -77,7 +82,6 @@ const HistoryScreen = ({ navigation }: Props) => {
       <StatusBar barStyle="dark-content" />
       <MainContainer>
         <Header title="History" />
-        <Button onPress={() => navigation.navigate('LyricsDetails')} title=" Go To Lyrics Detail" />
         {searchHistoryData.length > 0 && (
           <ClearButtonContainer>
             <RectangularButton onPress={clearHistory} title="Clear History" />

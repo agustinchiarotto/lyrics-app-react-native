@@ -5,7 +5,8 @@ import { colors } from '../../utils/theme';
 
 export const ClearButtonContainer = styled(View)({
   alignItems: 'center',
-  marginVertical: 10,
+  marginBottom: 10,
+  marginTop: 20,
   width: '100%',
 });
 
