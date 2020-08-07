@@ -18,22 +18,19 @@ export const Info = styled(View)({
   marginLeft: 3,
 });
 
-export const MainContainer = styled(View)({
-  alignSelf: 'center',
-  backgroundColor: colors.white,
-  borderRadius: 10,
-  flexDirection: 'row',
-  padding: 15,
-  width: '95%',
-});
-
 export const Titles = styled(View)({
   alignSelf: 'center',
   marginLeft: 20,
 });
 
 export const additionalStyles = StyleSheet.create({
-  cardShadow: {
+  mainContainer: {
+    alignSelf: 'center',
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    flexDirection: 'row',
+    padding: 15,
+    width: '95%',
     elevation: 3,
     shadowColor: 'black',
     shadowOffset: {

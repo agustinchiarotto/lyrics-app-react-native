@@ -1,9 +1,10 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import AnimatedSqueeze from '../AnimatedSqueeze';
 import CustomText from '../CustomText';
 import Spacing from '../Spacing';
-import { IconContainer, Info, MainContainer, Titles, additionalStyles } from './styles';
+import { IconContainer, Info, Titles, additionalStyles } from './styles';
 import { colors } from '../../utils/theme';
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 
 const SongItem = ({ artistName, songName }: Props) => {
   return (
-    <MainContainer style={additionalStyles.cardShadow}>
+    <AnimatedSqueeze touchableStyle={additionalStyles.mainContainer}>
       <IconContainer>
         <Icon color={colors.patagonianOrange} name="music-note" size={40} />
       </IconContainer>
@@ -28,7 +29,7 @@ const SongItem = ({ artistName, songName }: Props) => {
         <Spacing size={9} />
         <CustomText>{songName}</CustomText>
       </Info>
-    </MainContainer>
+    </AnimatedSqueeze>
   );
 };
 

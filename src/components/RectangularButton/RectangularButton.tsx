@@ -4,6 +4,7 @@ import { ActivityIndicator } from 'react-native';
 import CustomText from '../CustomText';
 import { MainContainer } from './styles';
 import { colors } from '../../utils/theme';
+import AnimatedSqueeze from '../AnimatedSqueeze';
 
 interface Props {
   disabled: boolean;
@@ -15,13 +16,15 @@ interface Props {
 
 const RectangularButton = ({ disabled, loading, onPress, title, variant }: Props) => {
   return (
-    <MainContainer disabled={disabled} onPress={onPress} variant={variant}>
-      {loading ? (
-        <ActivityIndicator color={colors.white} />
-      ) : (
-        <CustomText color={colors.white}>{title}</CustomText>
-      )}
-    </MainContainer>
+    <AnimatedSqueeze disabled={disabled} onPress={onPress}>
+      <MainContainer disabled={disabled} variant={variant}>
+        {loading ? (
+          <ActivityIndicator color={colors.white} />
+        ) : (
+          <CustomText color={colors.white}>{title}</CustomText>
+        )}
+      </MainContainer>
+    </AnimatedSqueeze>
   );
 };
 

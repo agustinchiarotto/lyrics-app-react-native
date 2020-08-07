@@ -1,3 +1,4 @@
+export { default as AnimatedSqueeze } from './AnimatedSqueeze';
 export { default as CustomText } from './CustomText';
 export { default as FormInput } from './FormInput';
 export { default as Header } from './Header';

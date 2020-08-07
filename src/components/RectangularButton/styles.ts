@@ -1,4 +1,4 @@
-import { Pressable } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 
 import { colors } from '../../utils/theme';
@@ -8,7 +8,7 @@ interface ButtonProps {
   variant: 'blue' | 'orange';
 }
 
-export const MainContainer = styled(Pressable)(({ disabled, variant }: ButtonProps) => ({
+export const MainContainer = styled(View)(({ disabled, variant }: ButtonProps) => ({
   alignItems: 'center',
   backgroundColor: disabled
     ? colors.patagonianOrangeOpacity
