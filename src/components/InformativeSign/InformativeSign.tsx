@@ -25,7 +25,7 @@ function getIconAndTextByVariant(variant: Props['variant']) {
       break;
     case 'no-history':
       iconName = 'history';
-      text = "You don't have prevoius searches.\nGo and find some lyrics!";
+      text = "You don't have previous searches.\nGo and find some lyrics!";
       break;
     default:
       iconName = 'info-outline';

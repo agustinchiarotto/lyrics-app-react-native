@@ -178,7 +178,7 @@ class SearchScreen extends Component<Props, State> {
                 </Form>
                 {latestSearch.artist !== '' ? (
                   <LastSearchContent>
-                    <CustomText variant="title">Latest Search</CustomText>
+                    <CustomText variant="title">Previous Search</CustomText>
                     <Spacing />
                     <LatestSongCard
                       artistName={latestSearch.artist}
