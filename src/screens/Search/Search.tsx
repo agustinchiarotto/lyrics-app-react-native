@@ -4,7 +4,6 @@ import {
   Button,
   Keyboard,
   StatusBar,
-  Text,
   TouchableWithoutFeedback,
 } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
@@ -52,9 +51,7 @@ class SearchScreen extends Component<Props, State> {
   };
 
   componentDidMount() {
-    const { getLyrics } = this.props;
     this.unsubscribeNetInfo = NetInfo.addEventListener(this.handleConnectivityChange);
-    getLyrics({ artist: 'coldpla', song: 'adventure of a lifetime' });
   }
 
   componentWillUnmount() {
@@ -68,18 +65,20 @@ class SearchScreen extends Component<Props, State> {
 
   getLyricsByArtistAndSong = () => {
     const {
-      // getLyrics,
+      getLyrics,
       lyricsForm: { values },
     } = this.props;
     if (values) {
-      console.log('values', values);
-      // getLyrics({ artist: values.artist, song: values.song });
+      // console.log('values', values);
+      getLyrics({ artist: values.artist, song: values.song });
     }
   };
 
   render() {
-    const { cleanLyrics, navigation, lyrics, loading, error, valid: fieldsValid } = this.props;
+    const { cleanLyrics, navigation, loading, error, valid: fieldsValid } = this.props;
     const { isConnected } = this.state;
+
+    // console.log('props', this.props);
 
     if (!isConnected) {
       return (
@@ -127,7 +126,7 @@ class SearchScreen extends Component<Props, State> {
               title="Search Lyrics"
               variant="orange"
             />
-            {loading ? <ActivityIndicator /> : <Text>{error || lyrics}</Text>}
+            {loading && <ActivityIndicator />}
             {!loading && error ? (
               <NotFoundSignModal onPressButton={cleanLyrics} visible={error !== ''} />
             ) : null}
@@ -140,6 +139,7 @@ class SearchScreen extends Component<Props, State> {
 
 const mapStateToProps = ({ forms, lyrics }: RootState) => ({
   error: lyrics.error,
+  initialValues: { artist: '', song: '' },
   loading: lyrics.loading,
   lyrics: lyrics.lyrics,
   lyricsForm: forms.lyricsForm,
@@ -154,11 +154,10 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose<ComponentType<Props>>(
-  connector,
   reduxForm<FormValues>({
     form: 'lyricsForm',
     destroyOnUnmount: false,
     enableReinitialize: true,
-    // initialValues: { artist: '', song: '' },
   }),
+  connector,
 )(SearchScreen);
