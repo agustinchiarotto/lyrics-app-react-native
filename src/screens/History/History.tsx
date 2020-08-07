@@ -48,7 +48,6 @@ const HistoryScreen = ({ navigation }: Props) => {
       try {
         const result = await AsyncStorage.getItem('search-history');
         const jsonValue: SongHistoryData[] = result !== null ? JSON.parse(result) : [];
-        console.log('jsonValue', jsonValue);
         if (isActive) {
           setSearchHistoryData(jsonValue || []);
         }

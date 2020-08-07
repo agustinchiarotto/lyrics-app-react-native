@@ -24,7 +24,7 @@ export const MainContainer = styled(View)({
   alignSelf: 'center',
   backgroundColor: colors.white,
   borderRadius: 10,
-  height: '80%',
+  height: '75%',
   width: '100%',
 });
 

@@ -71,6 +71,7 @@ class SearchScreen extends Component<Props, State> {
       lyricsForm: { values },
     } = this.props;
     if (values) {
+      Keyboard.dismiss();
       getLyrics({ artist: values.artist, song: values.song });
     }
   };
@@ -96,47 +97,51 @@ class SearchScreen extends Component<Props, State> {
     return (
       <>
         <StatusBar barStyle="dark-content" backgroundColor="white" />
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <MainContainer>
-            <Header title="Search" />
-            <Content>
-              <Form>
-                <Field
-                  autoCapitalize="words"
-                  label="Artist"
-                  name="artist"
-                  placeholder="Artist's Full Name"
-                  component={FormInput}
-                  validate={[required]}
-                />
+        <MainContainer>
+          <Header title="Search" />
+          <Content keyboardShouldPersistTaps="always">
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <>
+                <Form>
+                  <Field
+                    autoCapitalize="words"
+                    label="Artist"
+                    name="artist"
+                    placeholder="Artist's Full Name"
+                    component={FormInput}
+                    validate={[required]}
+                  />
+                  <Spacing />
+                  <Field
+                    autoCapitalize="words"
+                    label="Song"
+                    name="song"
+                    placeholder="Full Name of the Song"
+                    component={FormInput}
+                    validate={[required]}
+                  />
+                  <Spacing />
+                  <RectangularButton
+                    disabled={!fieldsValid}
+                    loading={loading}
+                    onPress={this.getLyricsByArtistAndSong}
+                    title="Search Lyrics"
+                    variant="orange"
+                  />
+                </Form>
+                <LastSearchContent>
+                  <CustomText variant="title">Latest Search</CustomText>
+                  <Spacing />
+                  <LatestSongCard artistName="hola" songName="hola" />
+                </LastSearchContent>
                 <Spacing />
-                <Field
-                  autoCapitalize="words"
-                  label="Song"
-                  name="song"
-                  placeholder="Full Name of the Song"
-                  component={FormInput}
-                  validate={[required]}
-                />
-                <Spacing />
-                <RectangularButton
-                  disabled={!fieldsValid}
-                  onPress={this.getLyricsByArtistAndSong}
-                  title="Search Lyrics"
-                  variant="orange"
-                />
-              </Form>
-              <LastSearchContent>
-                <CustomText variant="bigTitle">Latest Search</CustomText>
-                <Spacing />
-                <LatestSongCard artistName="hola" songName="hola" />
-              </LastSearchContent>
-            </Content>
-            {!loading && error ? (
-              <NotFoundSignModal onPressButton={cleanLyrics} visible={error !== ''} />
-            ) : null}
-          </MainContainer>
-        </TouchableWithoutFeedback>
+              </>
+            </TouchableWithoutFeedback>
+          </Content>
+          {!loading && error ? (
+            <NotFoundSignModal onPressButton={cleanLyrics} visible={error !== ''} />
+          ) : null}
+        </MainContainer>
       </>
     );
   }
