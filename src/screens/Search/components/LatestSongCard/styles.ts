@@ -39,4 +39,15 @@ export const additionalStyles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
   },
+  mainContainer: {
+    alignSelf: 'center',
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    height: '100%',
+    width: '100%',
+  },
+  viewContainer: {
+    height: '75%',
+    width: '100%',
+  },
 });

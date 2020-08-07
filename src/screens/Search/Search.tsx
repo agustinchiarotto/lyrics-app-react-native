@@ -1,6 +1,7 @@
 import React, { Component, ComponentType } from 'react';
 import { Keyboard, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-community/async-storage';
 import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
@@ -27,6 +28,8 @@ import { Content, Form, LastSearchContent, MainContainer, NoInternetSignContaine
 import { RootState } from '../../store';
 import { cleanLyricsAction, getLyricsAction } from '../../store/actions';
 import { required } from '../../utils/validation';
+import { SongHistoryData } from '../../types';
+import { goToPage } from '../../navigation/navigationControls';
 
 type FormValues = {
   artist: string;
@@ -45,15 +48,29 @@ type Props = PropsFromRedux & {
 
 type State = {
   isConnected: boolean;
+  latestSearch: SongHistoryData;
 };
 
 class SearchScreen extends Component<Props, State> {
   state = {
     isConnected: true,
+    latestSearch: {
+      id: '',
+      artist: '',
+      song: '',
+      lyrics: '',
+    },
   };
 
+  _navListener: any;
+
   componentDidMount() {
+    const { navigation } = this.props;
+    this._navListener = navigation.addListener('focus', () => {
+      this.checkLatestSearch();
+    });
     this.unsubscribeNetInfo = NetInfo.addEventListener(this.handleConnectivityChange);
+    this.checkLatestSearch();
   }
 
   componentWillUnmount() {
@@ -64,6 +81,29 @@ class SearchScreen extends Component<Props, State> {
 
   handleConnectivityChange = (state: { isConnected: boolean }) =>
     this.setState({ isConnected: state.isConnected });
+
+  checkLatestSearch = async () => {
+    try {
+      const result = await AsyncStorage.getItem('search-history');
+      const jsonValue: SongHistoryData[] = result !== null ? JSON.parse(result) : [];
+      if (jsonValue.length > 0) {
+        this.setLatestSearch(jsonValue[0]);
+      } else {
+        this.setLatestSearch({
+          id: '',
+          artist: '',
+          song: '',
+          lyrics: '',
+        });
+      }
+    } catch (error) {
+      console.log('An error occurred clearing the search history: ', error);
+    }
+  };
+
+  setLatestSearch = (latestSearch: SongHistoryData) => {
+    this.setState({ latestSearch });
+  };
 
   getLyricsByArtistAndSong = () => {
     const {
@@ -76,9 +116,16 @@ class SearchScreen extends Component<Props, State> {
     }
   };
 
+  goToLyrics = () => {
+    const { latestSearch } = this.state;
+    goToPage('LyricsDetails', {
+      songData: latestSearch,
+    });
+  };
+
   render() {
     const { cleanLyrics, loading, error, valid: fieldsValid } = this.props;
-    const { isConnected } = this.state;
+    const { isConnected, latestSearch } = this.state;
 
     if (!isConnected) {
       return (
@@ -129,11 +176,17 @@ class SearchScreen extends Component<Props, State> {
                     variant="orange"
                   />
                 </Form>
-                <LastSearchContent>
-                  <CustomText variant="title">Latest Search</CustomText>
-                  <Spacing />
-                  <LatestSongCard artistName="hola" songName="hola" />
-                </LastSearchContent>
+                {latestSearch.artist !== '' ? (
+                  <LastSearchContent>
+                    <CustomText variant="title">Latest Search</CustomText>
+                    <Spacing />
+                    <LatestSongCard
+                      artistName={latestSearch.artist}
+                      onPress={this.goToLyrics}
+                      songName={latestSearch.song}
+                    />
+                  </LastSearchContent>
+                ) : null}
                 <Spacing />
               </>
             </TouchableWithoutFeedback>

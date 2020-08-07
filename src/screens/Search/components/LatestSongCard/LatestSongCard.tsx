@@ -1,18 +1,23 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { CustomText, Spacing } from '../../../../components';
-import { IconContainer, Info, MainContainer, additionalStyles } from './styles';
+import { AnimatedSqueeze, CustomText, Spacing } from '../../../../components';
+import { IconContainer, Info, additionalStyles } from './styles';
 import { colors } from '../../../../utils/theme';
 
 interface Props {
   artistName: string;
+  onPress: () => void;
   songName: string;
 }
 
-const LastSongCard = ({ artistName, songName }: Props) => {
+const LastSongCard = ({ artistName, onPress, songName }: Props) => {
   return (
-    <MainContainer style={additionalStyles.cardShadow}>
+    <AnimatedSqueeze
+      onPress={onPress}
+      touchableStyle={[additionalStyles.mainContainer, additionalStyles.cardShadow]}
+      viewStyle={additionalStyles.viewContainer}
+    >
       <IconContainer>
         <Icon color={colors.patagonianOrange} name="queue-music" size={100} />
       </IconContainer>
@@ -27,7 +32,7 @@ const LastSongCard = ({ artistName, songName }: Props) => {
           <CustomText>{songName}</CustomText>
         </CustomText>
       </Info>
-    </MainContainer>
+    </AnimatedSqueeze>
   );
 };
 
