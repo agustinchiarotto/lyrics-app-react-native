@@ -6,30 +6,26 @@ import { colors } from '../../utils/theme';
 export const IconContainer = styled(View)({
   alignItems: 'center',
   backgroundColor: colors.patagonianBlueOpacity,
-  borderRadius: 30,
-  height: 60,
+  borderTopLeftRadius: 10,
+  borderTopRightRadius: 10,
+  flex: 2,
+  height: 'auto',
   justifyContent: 'center',
-  width: 60,
+  width: '100%',
 });
 
 export const Info = styled(View)({
-  alignSelf: 'center',
   flex: 1,
-  marginLeft: 3,
+  justifyContent: 'center',
+  paddingLeft: 20,
 });
 
 export const MainContainer = styled(View)({
   alignSelf: 'center',
   backgroundColor: colors.white,
   borderRadius: 10,
-  flexDirection: 'row',
-  padding: 15,
-  width: '95%',
-});
-
-export const Titles = styled(View)({
-  alignSelf: 'center',
-  marginLeft: 20,
+  height: '80%',
+  width: '100%',
 });
 
 export const additionalStyles = StyleSheet.create({

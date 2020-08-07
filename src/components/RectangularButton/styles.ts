@@ -11,7 +11,7 @@ interface ButtonProps {
 export const MainContainer = styled(Pressable)(({ disabled, variant }: ButtonProps) => ({
   alignItems: 'center',
   backgroundColor: disabled
-    ? colors.lightGray
+    ? colors.patagonianOrangeOpacity
     : variant === 'orange'
     ? colors.patagonianOrange
     : colors.patagonianBlue,

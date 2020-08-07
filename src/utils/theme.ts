@@ -5,9 +5,11 @@ export const colors = {
   gray: '#808080',
   lightGray: '#d3d3d3',
   patagonianBlue: '#1571f8',
+  patagonianBlueOpacity: 'rgba(21, 113, 248, 0.15)',
   patagonianDarkBlue: '#182a4a',
   patagonianGray: '#666666',
   patagonianOrange: '#ef8827',
+  patagonianOrangeOpacity: 'rgba(239, 136, 39, 0.4)',
   placeholderGray: '#F5F5F5',
   white: '#ffffff',
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, FlatList, StatusBar } from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

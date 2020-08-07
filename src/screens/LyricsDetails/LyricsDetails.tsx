@@ -20,6 +20,7 @@ const LyricsDetailsScreen = ({ lyrics, lyricsForm }: Props) => {
   const formValues = lyricsForm.values;
   let artistName = '';
   let songName = '';
+
   if (formValues) {
     artistName = formValues.artist;
     songName = formValues.song;
@@ -46,6 +47,7 @@ const LyricsDetailsScreen = ({ lyrics, lyricsForm }: Props) => {
     </>
   );
 };
+
 const mapStateToProps = ({ form, lyrics }: RootState) => ({
   lyrics: lyrics.lyrics,
   lyricsForm: form.lyricsForm,

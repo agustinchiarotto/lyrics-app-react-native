@@ -38,7 +38,6 @@ const FormInput = ({ input, label, meta, ...inputProps }: TextInputFieldProps) =
   return (
     <FieldContainer>
       <CustomText variant="subtitle">{label}</CustomText>
-      {console.log('Hola')}
       <InputContainer
         style={{
           borderColor: getBorder(),
@@ -56,7 +55,9 @@ const FormInput = ({ input, label, meta, ...inputProps }: TextInputFieldProps) =
       </InputContainer>
       {meta.touched && meta.error ? (
         <ErrorTextContainer>
-          <CustomText variant="error">{meta.error}</CustomText>
+          <CustomText color={colors.error} variant="error">
+            {meta.error}
+          </CustomText>
         </ErrorTextContainer>
       ) : null}
     </FieldContainer>
