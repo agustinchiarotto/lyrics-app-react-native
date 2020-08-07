@@ -4,7 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import lyricsReducer from './lyrics';
 
 const rootReducer = combineReducers({
-  forms: formReducer,
+  form: formReducer,
   lyrics: lyricsReducer,
 });
 

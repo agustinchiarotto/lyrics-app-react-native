@@ -46,9 +46,9 @@ const LyricsDetailsScreen = ({ lyrics, lyricsForm }: Props) => {
     </>
   );
 };
-const mapStateToProps = ({ forms, lyrics }: RootState) => ({
+const mapStateToProps = ({ form, lyrics }: RootState) => ({
   lyrics: lyrics.lyrics,
-  lyricsForm: forms.lyricsForm,
+  lyricsForm: form.lyricsForm,
 });
 
 const connector = connect(mapStateToProps);

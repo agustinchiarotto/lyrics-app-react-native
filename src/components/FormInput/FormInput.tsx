@@ -35,9 +35,6 @@ const FormInput = ({ input, label, meta, ...inputProps }: TextInputFieldProps) =
     return borderColor;
   };
 
-  console.log('meta: ', meta);
-  console.log('input: ', input);
-
   return (
     <FieldContainer>
       <CustomText variant="subtitle">{label}</CustomText>
@@ -49,17 +46,12 @@ const FormInput = ({ input, label, meta, ...inputProps }: TextInputFieldProps) =
       >
         <Input
           {...inputProps}
-          // onBlur={input.onBlur}
           onChangeText={input.onChange}
-          // onChangeText={() => input.onChange('dasajk')}
           onEndEditing={input.onBlur}
-          // onChangeText={(text) => console.log('change text', text)}
-          // onEndEditing={(event) => console.log('end editing', event)}
           onFocus={(e: any) => input.onFocus(e)}
           active={meta.active || false}
           underlineColorAndroid="transparent"
           placeholderTextColor={colors.patagonianGray}
-          // value={input.value}
         />
       </InputContainer>
       {meta.touched && meta.error ? (

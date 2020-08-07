@@ -69,7 +69,6 @@ class SearchScreen extends Component<Props, State> {
       lyricsForm: { values },
     } = this.props;
     if (values) {
-      // console.log('values', values);
       getLyrics({ artist: values.artist, song: values.song });
     }
   };
@@ -77,8 +76,6 @@ class SearchScreen extends Component<Props, State> {
   render() {
     const { cleanLyrics, navigation, loading, error, valid: fieldsValid } = this.props;
     const { isConnected } = this.state;
-
-    // console.log('props', this.props);
 
     if (!isConnected) {
       return (
@@ -137,12 +134,12 @@ class SearchScreen extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = ({ forms, lyrics }: RootState) => ({
+const mapStateToProps = ({ form, lyrics }: RootState) => ({
   error: lyrics.error,
   initialValues: { artist: '', song: '' },
   loading: lyrics.loading,
   lyrics: lyrics.lyrics,
-  lyricsForm: forms.lyricsForm,
+  lyricsForm: form.lyricsForm,
 });
 
 const mapDispatchToProps = {
