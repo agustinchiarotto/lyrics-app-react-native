@@ -99,7 +99,7 @@ class SearchScreen extends Component<Props, State> {
         <StatusBar barStyle="dark-content" backgroundColor="white" />
         <MainContainer>
           <Header title="Search" />
-          <Content keyboardShouldPersistTaps="always">
+          <Content keyboardShouldPersistTaps="handled">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <>
                 <Form>

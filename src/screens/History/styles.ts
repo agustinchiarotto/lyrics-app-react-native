@@ -11,6 +11,8 @@ export const ClearButtonContainer = styled(View)({
 
 export const EmptyListPlaceholder = styled(View)({
   alignItems: 'center',
+  flex: 1,
+  justifyContent: 'center',
   width: '100%',
 });
 
@@ -25,6 +27,7 @@ export const additionalStyles = StyleSheet.create({
     flex: 1,
   },
   flatlistContent: {
+    flexGrow: 1,
     paddingVertical: 20,
   },
 });
