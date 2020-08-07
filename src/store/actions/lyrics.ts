@@ -7,6 +7,17 @@ import { getLyricsService } from '../../services';
 import { goToPage } from '../../navigation/navigationControls';
 import { SongHistoryData } from '../../types';
 
+const processHistoryArray = (historyArray: SongHistoryData[], newSong: SongHistoryData) => {
+  const arrayWithNewSong = [newSong, ...historyArray];
+
+  const songsIds = Array.from(new Set(arrayWithNewSong.map((song) => song.id)));
+  const uniqueSongs = songsIds.map((id) => {
+    return arrayWithNewSong.find((song) => song.id === id);
+  });
+
+  return uniqueSongs;
+};
+
 const saveSongToHistory = async ({ id, artist, song, lyrics }: SongHistoryData) => {
   const songId = id || `${artist}${song}`;
   const songToSave: SongHistoryData = {
@@ -18,9 +29,9 @@ const saveSongToHistory = async ({ id, artist, song, lyrics }: SongHistoryData) 
 
   try {
     const result = await AsyncStorage.getItem('search-history');
-    const history: SongHistoryData[] = result !== null ? JSON.parse(result) : [];
-    history.push(songToSave);
-    await AsyncStorage.setItem('search-history', JSON.stringify(history));
+    const songsHistory: SongHistoryData[] = result !== null ? JSON.parse(result) : [];
+    const newSongsHistory = processHistoryArray(songsHistory, songToSave);
+    await AsyncStorage.setItem('search-history', JSON.stringify(newSongsHistory));
   } catch (error) {
     console.log('An error occurred clearing the search history: ', error);
   }
